@@ -1,0 +1,5 @@
+{
+  "hello": "Hello! Tailwind & i18n are working 🚀",
+  "desc": "If you see this text change language when clicking below, you succeeded.",
+  "button": "Button test effect"
+}
