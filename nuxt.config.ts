@@ -5,17 +5,31 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/image",
     "@nuxt/eslint",
+    "@pinia/nuxt",
   ],
+
+  router: {
+    options: {
+      strict: true,
+    },
+  },
 
   devtools: { enabled: true },
 
   compatibilityDate: "2025-07-15",
 
+  typescript: {
+    typeCheck: false,
+    shim: false,
+  },
+
   eslint: {
     config: {
-      stylistic: false, // 👈 Tắt hẳn stylistic rules
+      stylistic: false,
     },
   },
+
+  css: ["vue3-toastify/dist/index.css"],
 
   i18n: {
     locales: [
@@ -24,6 +38,12 @@ export default defineNuxtConfig({
     ],
     langDir: "locales",
     defaultLocale: "vi",
-    strategy: "prefix_except_default",
+    strategy: "no_prefix",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+      alwaysRedirect: true,
+    },
   },
 });
