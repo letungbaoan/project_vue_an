@@ -5,6 +5,7 @@ import type { Course } from "../types";
 
 const { locale } = useI18n();
 
+// Fetch courses with instructor data populated using _expand
 const { data: featuredCourses } = await useFetch<Course[]>(
   "http://localhost:3001/courses?_limit=3&_expand=user",
   { lazy: true },
@@ -122,7 +123,10 @@ const stats = [
           :key="course.id"
           class="bg-white rounded-[20px] p-5 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 flex flex-col h-full"
         >
-          <div class="relative mb-5 overflow-hidden rounded-xl h-56">
+          <NuxtLink
+            :to="`/courses/${course.id}`"
+            class="relative mb-5 overflow-hidden rounded-xl h-56 block"
+          >
             <img
               :src="course.thumbnail"
               class="w-full h-full object-cover transform hover:scale-110 transition duration-700"
@@ -132,14 +136,16 @@ const stats = [
             >
               {{ course.level }}
             </div>
-          </div>
+          </NuxtLink>
 
           <div class="flex flex-col flex-grow">
-            <h3
-              class="text-xl font-bold mb-3 text-[#2f327d] line-clamp-2 min-h-[3.5rem]"
-            >
-              {{ course.name }}
-            </h3>
+            <NuxtLink :to="`/courses/${course.id}`">
+              <h3
+                class="text-xl font-bold mb-3 text-[#2f327d] line-clamp-2 min-h-[3.5rem] hover:text-primary transition-colors"
+              >
+                {{ course.name }}
+              </h3>
+            </NuxtLink>
             <p class="text-gray-500 text-sm mb-6 line-clamp-2">
               {{ course.description }}
             </p>
@@ -147,7 +153,7 @@ const stats = [
             <div
               class="mt-auto pt-5 border-t border-gray-100 flex items-center justify-between"
             >
-              <div class="flex items-center gap-3">
+              <div v-if="course.user" class="flex items-center gap-3">
                 <img
                   :src="course.user?.avatar"
                   class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover"

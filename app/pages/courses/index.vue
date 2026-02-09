@@ -19,7 +19,7 @@ const searchQuery = ref("");
 const selectedLevel = ref("");
 const minPriceInput = ref<number | null>(null);
 const maxPriceInput = ref<number | null>(null);
-const sortOption = ref("created_at_desc");
+const sortOption = ref("createdAt_desc");
 const isFilterOpen = ref(false);
 
 const page = useState("courses-page", () => 1);
@@ -65,6 +65,7 @@ const queryParams = computed(() => {
     _page: page.value,
     _limit: PAGE_LIMIT,
     _expand: "user",
+    status: "approved",
   };
 });
 

@@ -131,5 +131,93 @@
     "access_mobile_tv": "Access on mobile and TV",
     "certificate": "Certificate of Completion",
     "discount_off": "50% OFF"
+  },
+  "profile": {
+    "title": "My Profile",
+    "tab_general": "General Info",
+    "tab_security": "Security & Password",
+    "avatar_change": "Change Avatar",
+    "label_username": "Display Name",
+    "label_email": "Email",
+    "label_bio": "Bio",
+    "label_phone": "Phone Number",
+    "btn_save": "Save Changes",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm New Password",
+    "btn_change_pass": "Change Password",
+    "success_update": "Profile updated successfully!",
+    "success_password": "Password changed successfully!",
+    "error_password_match": "Passwords do not match.",
+    "error_wrong_pass": "Current password is incorrect."
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email address",
+    "min": "Must be at least {min} characters",
+    "url": "Invalid URL"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "view_cart": "View Cart",
+    "add_success": "Added to cart!",
+    "add_to_cart": "Add to cart",
+    "remove_success": "Removed from cart!",
+    "already_in_cart": "Course is already in cart",
+    "remove": "Remove",
+    "buy_now": "Buy Now",
+    "owned": "Owned",
+    "empty_desc": "Looks like you haven't added any courses yet. Go back and find the perfect course for you!",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "secure_payment": "100% Secure Payment",
+    "checkout_in_dev": "Checkout feature is under development!",
+    "course_count": "{count} courses"
+  },
+  "checkout": {
+    "title": "Secure Checkout",
+    "payment_details": "Payment Details",
+    "card_holder": "Card Holder Name",
+    "card_number": "Card Number",
+    "expiry_date": "Expiry Date (MM/YY)",
+    "cvv": "CVV",
+    "pay_now": "Pay Now",
+    "processing": "Processing...",
+    "order_summary": "Order Summary",
+    "success_title": "Payment Successful!",
+    "success_desc": "Thank you for your purchase. You can start learning right now.",
+    "go_to_learning": "Go to Learning",
+    "error_payment": "Payment failed, please check your card details."
+  },
+  "my_purchases": {
+    "title": "Purchase History",
+    "order_id": "Order #{id}",
+    "date": "Date",
+    "total": "Total",
+    "empty": "No orders found.",
+    "empty_desc": "Explore courses and invest in your knowledge today!",
+    "status": {
+      "pending": "Pending",
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "item_count": "{count} courses"
+  },
+  "learning": {
+    "add_note_at": "Add note at",
+    "cancel": "Cancel",
+    "save_note": "Save Note",
+    "note_placeholder": "Note content...",
+    "my_notes": "My Notes"
+  },
+  "discussion": {
+    "title": "Discussion",
+    "placeholder": "Ask a question or share your thoughts...",
+    "comments": "Comments",
+    "empty": "No discussions yet. Be the first!",
+    "reply": "Reply"
   }
 }

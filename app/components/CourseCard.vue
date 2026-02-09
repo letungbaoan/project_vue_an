@@ -40,7 +40,7 @@ defineProps<{
         </h3>
       </NuxtLink>
 
-      <div class="flex items-center gap-2 mb-4">
+      <div v-if="course.instructor" class="flex items-center gap-2 mb-4">
         <img
           :src="course.user?.avatar"
           class="w-6 h-6 rounded-full object-cover"

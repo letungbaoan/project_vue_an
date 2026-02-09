@@ -8,7 +8,7 @@ dist
 
 # Node dependencies
 node_modules
-
+db/db.json
 # Logs
 logs
 *.log

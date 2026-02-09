@@ -12,6 +12,7 @@ import {
 } from "lucide-vue-next";
 import { formatCurrency } from "../../../utils/format";
 import { useAuthStore } from "../../../stores/auth";
+import { useCartStore } from "../../../stores/cart";
 import { PATHS } from "../../constants/paths";
 import { toast } from "vue3-toastify";
 import type { Course, Lesson, Review, Enrollment } from "../../types";
@@ -19,6 +20,7 @@ import type { Course, Lesson, Review, Enrollment } from "../../types";
 const { t, locale } = useI18n();
 const route = useRoute();
 const auth = useAuthStore();
+const cartStore = useCartStore();
 const courseId = route.params.id as string;
 
 const activeTab = ref("overview");
@@ -26,8 +28,14 @@ const userRating = ref(5);
 const userComment = ref("");
 const isSubmitting = ref(false);
 
+// Fetch course with instructor data populated (only approved courses)
 const { data: course, error } = await useFetch<Course>(
-  `http://localhost:3001/courses/${courseId}?_expand=user`,
+  `http://localhost:3001/courses/${courseId}`,
+  {
+    query: {
+      _expand: "user",
+    },
+  },
 );
 
 const { data: lessons } = await useFetch<Lesson[]>(
@@ -55,13 +63,6 @@ const isOwned = computed(() => {
   return enrollment.value && enrollment.value.length > 0;
 });
 
-if (error.value || !course.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: t("common.course_not_found"),
-  });
-}
-
 const isYouTubeUrl = (url?: string) => {
   if (!url) return false;
   return url.includes("youtube.com") || url.includes("youtu.be");
@@ -78,6 +79,13 @@ const videoUrl = computed(() => {
     "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
   );
 });
+
+// Format duration from seconds to mm:ss
+const formatDuration = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+};
 
 const setRating = (star: number) => {
   userRating.value = star;
@@ -125,6 +133,21 @@ const handleSubmitReview = async () => {
     isSubmitting.value = false;
   }
 };
+
+const handleAddToCart = () => {
+  if (course.value) {
+    cartStore.addToCart(course.value);
+  }
+};
+
+const handleBuyNow = () => {
+  if (course.value) {
+    if (!cartStore.isInCart(course.value.id)) {
+      cartStore.addToCart(course.value);
+    }
+    navigateTo(PATHS.CART);
+  }
+};
 </script>
 
 <template>
@@ -161,13 +184,16 @@ const handleSubmitReview = async () => {
           </p>
 
           <div class="flex flex-wrap gap-6 text-sm text-gray-300 pt-4">
-            <div class="flex items-center gap-2">
+            <div v-if="course.user" class="flex items-center gap-2">
               <User class="w-5 h-5 text-primary" />
               <span>{{ course.user?.username }}</span>
             </div>
             <div class="flex items-center gap-2">
               <Clock class="w-5 h-5 text-primary" />
-              <span>{{ $t("course_detail.last_updated") }}: May 2024</span>
+              <span
+                >{{ $t("course_detail.last_updated") }}:
+                {{ formatDate(course.updatedAt) }}</span
+              >
             </div>
             <div class="flex items-center gap-2">
               <Globe class="w-5 h-5 text-primary" />
@@ -285,16 +311,24 @@ const handleSubmitReview = async () => {
                     class="flex items-center gap-2 text-xs text-gray-400 mt-1"
                   >
                     <PlayCircle class="w-3 h-3" /><span>Video</span>
+                    <span
+                      v-if="lesson.isFree"
+                      class="text-green-500 font-semibold"
+                      >• Free</span
+                    >
                   </div>
                 </div>
               </div>
               <span class="text-sm font-medium text-gray-400">{{
-                lesson.duration
+                formatDuration(lesson.duration)
               }}</span>
             </div>
           </div>
 
-          <div v-if="activeTab === 'instructor'" class="flex gap-6 items-start">
+          <div
+            v-if="activeTab === 'instructor' && course.user"
+            class="flex gap-6 items-start"
+          >
             <img
               :src="course.user?.avatar"
               class="w-24 h-24 rounded-full object-cover border-4 border-gray-100"
@@ -304,11 +338,29 @@ const handleSubmitReview = async () => {
                 {{ course.user?.username }}
               </h3>
               <p class="text-primary font-medium mb-4">
-                {{ $t("course_detail.instructor_job") }}
+                {{
+                  course.user.role === "instructor"
+                    ? $t("course_detail.instructor_job")
+                    : ""
+                }}
               </p>
-              <p class="text-secondary text-sm">
-                {{ $t("course_detail.instructor_desc") }}
+              <p class="text-secondary text-sm mb-4">
+                {{
+                  course.user.bio || $t("course_detail.instructor_desc")
+                }}
               </p>
+              <div
+                v-if="course.user.skills?.length"
+                class="flex flex-wrap gap-2"
+              >
+                <span
+                  v-for="skill in course.user.skills"
+                  :key="skill"
+                  class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-medium"
+                >
+                  {{ skill }}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -319,7 +371,12 @@ const handleSubmitReview = async () => {
               </h3>
               <span
                 class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-bold"
-                >{{ reviews?.length || 0 }} total</span
+              >
+                {{
+                  t("course_detail.reviews_count", {
+                    count: reviews?.length || 0,
+                  })
+                }}</span
               >
             </div>
 
@@ -446,6 +503,23 @@ const handleSubmitReview = async () => {
             class="inline-block bg-red-100 text-red-500 text-xs font-bold px-3 py-1 rounded-full mb-6"
             >{{ $t("course_detail.discount_off") }}</span
           >
+
+          <div class="space-y-4">
+            <button
+              @click="handleBuyNow"
+              :disabled="isOwned"
+              class="w-full py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-teal-600 shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+            >
+              {{ isOwned ? $t("cart.owned") : $t("cart.buy_now") }}
+            </button>
+            <button
+              v-if="!isOwned"
+              @click="handleAddToCart"
+              class="w-full py-4 bg-white text-primary border-2 border-primary rounded-xl font-bold text-lg hover:bg-primary/5 transition-colors"
+            >
+              {{ $t("cart.add_to_cart") }}
+            </button>
+          </div>
 
           <div class="mt-8 pt-6 border-t border-gray-100 space-y-4">
             <ul class="space-y-3 text-sm text-secondary">

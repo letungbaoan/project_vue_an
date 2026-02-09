@@ -131,5 +131,93 @@
     "access_mobile_tv": "Học trên thiết bị di động và TV",
     "certificate": "Chứng chỉ hoàn thành",
     "discount_off": "GIẢM 50%"
+  },
+  "profile": {
+    "title": "Hồ sơ cá nhân",
+    "tab_general": "Thông tin chung",
+    "tab_security": "Bảo mật & Mật khẩu",
+    "avatar_change": "Đổi ảnh đại diện",
+    "label_username": "Tên hiển thị",
+    "label_email": "Email",
+    "label_bio": "Giới thiệu bản thân",
+    "label_phone": "Số điện thoại",
+    "btn_save": "Lưu thay đổi",
+    "current_password": "Mật khẩu hiện tại",
+    "new_password": "Mật khẩu mới",
+    "confirm_password": "Xác nhận mật khẩu mới",
+    "btn_change_pass": "Đổi mật khẩu",
+    "success_update": "Cập nhật thông tin thành công!",
+    "success_password": "Đổi mật khẩu thành công!",
+    "error_password_match": "Mật khẩu xác nhận không khớp.",
+    "error_wrong_pass": "Mật khẩu hiện tại không đúng."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "email": "Email không hợp lệ",
+    "min": "Phải có ít nhất {min} ký tự",
+    "url": "Đường dẫn URL không hợp lệ"
+  },
+  "cart": {
+    "title": "Giỏ hàng",
+    "add_to_cart": "Thêm vào giỏ",
+    "empty": "Giỏ hàng trống",
+    "total": "Tổng cộng",
+    "checkout": "Thanh toán",
+    "view_cart": "Xem giỏ hàng",
+    "add_success": "Đã thêm vào giỏ hàng!",
+    "remove_success": "Đã xóa khỏi giỏ hàng!",
+    "already_in_cart": "Khóa học đã có trong giỏ hàng",
+    "remove": "Xóa",
+    "buy_now": "Mua ngay",
+    "owned": "Đã sở hữu",
+    "empty_desc": "Có vẻ như bạn chưa chọn khóa học nào. Hãy quay lại và tìm kiếm khóa học phù hợp với bạn nhé!",
+    "subtotal": "Tạm tính",
+    "discount": "Giảm giá",
+    "secure_payment": "Bảo mật thanh toán 100%",
+    "checkout_in_dev": "Tính năng thanh toán đang được phát triển!",
+    "course_count": "{count} khóa học"
+  },
+  "checkout": {
+    "title": "Thanh toán an toàn",
+    "payment_details": "Thông tin thanh toán",
+    "card_holder": "Tên chủ thẻ",
+    "card_number": "Số thẻ",
+    "expiry_date": "Ngày hết hạn (MM/YY)",
+    "cvv": "CVV",
+    "pay_now": "Thanh toán ngay",
+    "processing": "Đang xử lý...",
+    "order_summary": "Tóm tắt đơn hàng",
+    "success_title": "Thanh toán thành công!",
+    "success_desc": "Cảm ơn bạn đã mua khóa học. Bạn có thể bắt đầu học ngay bây giờ.",
+    "go_to_learning": "Vào học ngay",
+    "error_payment": "Thanh toán thất bại, vui lòng kiểm tra lại thông tin thẻ."
+  },
+  "my_purchases": {
+    "title": "Lịch sử mua hàng",
+    "order_id": "Đơn hàng #{id}",
+    "date": "Ngày đặt",
+    "total": "Tổng tiền",
+    "empty": "Bạn chưa có đơn hàng nào.",
+    "empty_desc": "Hãy khám phá các khóa học và đầu tư cho kiến thức ngay hôm nay!",
+    "status": {
+      "pending": "Đang xử lý",
+      "success": "Thành công",
+      "failed": "Thất bại"
+    },
+    "item_count": "{count} khóa học"
+  },
+  "learning": {
+    "add_note_at": "Thêm ghi chú tại",
+    "cancel": "Hủy",
+    "save_note": "Lưu ghi chú",
+    "note_placeholder": "Nội dung ghi chú...",
+    "my_notes": "Ghi chú của tôi"
+  },
+  "discussion": {
+    "title": "Thảo luận",
+    "placeholder": "Đặt câu hỏi hoặc chia sẻ suy nghĩ của bạn...",
+    "comments": "Bình luận",
+    "empty": "Chưa có cuộc thảo luận nào. Hãy là người đầu tiên!",
+    "reply": "Trả lời"
   }
 }

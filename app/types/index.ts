@@ -1,5 +1,5 @@
 // types/index.ts
-export type Role = "student" | "instructor" | "admin";
+export type Role = "user" | "instructor" | "admin";
 
 export interface User {
   id: string;
@@ -41,9 +41,9 @@ export interface Lesson {
   name: string;
   videoUrl: string;
   content: string;
-  duration: number;
+  duration: number; // Đổi thành number (giây) cho dễ tính toán
   order: number;
-  isFree: boolean;
+  isFree: boolean; // Cho phép preview một số bài
   createdAt: string;
 }
 
